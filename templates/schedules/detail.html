@@ -1,4 +1,5 @@
 {% extends "base_generic.html" %} {% block content %}
+{% load static %}
 <div class="container">
   {% include 'partials/sub-header.html' %}
   {% include 'partials/metrics.html' %}
@@ -8,14 +9,15 @@
         <div class="preview-card__item">
           <div class="preview-card__img">
             <img
-              src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg"
+              src="{% static 'images/schedule.avif' %}"
               alt=""
             />
           </div>
           <div class="preview-card__content">
-            <span class="preview-card__code">{{ event.start_date }} - {{ event.end_date }}</span>
-            <div class="preview-card__title">{{ event.title }}</div>
-            <div class="preview-card__text">{{ event.description }}</div>
+            <span class="preview-card__code">Topic: {{ schedule.topic }} </span>
+            <div class="preview-card__code">Schedule Event: {{ schedule.event.title }}</div>
+            <div class="preview-card__code">Schedule Event Date: {{ schedule.event.start_date }}</div>
+            <div class="preview-card__code">Schedule Time: {{ schedule.start_time }} {{schedule.end_time}} </div>
           </div>
         </div>
       </div>

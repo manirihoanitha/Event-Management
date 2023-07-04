@@ -1,11 +1,11 @@
 {% extends "base_generic.html" %} {% block content %}
-<h1 class="text-dark">Paid Events</h1>
+<h1 class="text-dark">List of Schedules</h1>
 {% include 'partials/sub-header.html' %}
 {% include 'partials/metrics.html' %}
 <ul class="list-group">
-  {% for event in page_obj %}
+  {% for schedule in page_obj %}
   <li class="list-group-item">
-    <a href="{% url 'event-detail' event.title %}">{{ event.title }}</a>
+    <a href="{% url 'schedule-detail' topic=schedule.topic %}">{{ schedule.topic }}</a>
   </li>
   {% empty %}
   <div>{% include 'includes/data-not-found.html' %}</div>

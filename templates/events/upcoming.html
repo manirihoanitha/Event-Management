@@ -1,0 +1,46 @@
+<!-- events/list.html -->
+{% extends "base_generic.html" %} 
+{% block content %} 
+<h2 class="text-dark">Upcoming Events</h2>
+{% include 'partials/sub-header.html' %}
+{% include 'partials/metrics.html' %}
+<ul class="list-group">
+  {% for event in page_obj %}
+  <li class="list-group-item">
+    <a href="{% url 'event-detail' title=event.title %}">{{ event.title }}</a>
+    <p>{{ event.description }}</p>
+    <p class="text-bold text-primary">{{ event.start_date }} - {{ event.end_date }}</p>
+  </li>
+  {% empty %} {% include 'includes/data-not-found.html' %} {% endfor %}
+</ul>
+<!-- Pagination -->
+<nav class="my-5">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">First</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+      {% endif %}
+  
+      {% for num in page_obj.paginator.page_range %}
+        {% if num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          {% if num == page_obj.number %}
+            <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+      {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">Last</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}

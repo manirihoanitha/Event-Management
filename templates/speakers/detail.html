@@ -1,7 +1,21 @@
-{% extends "base_generic.html" %}
-
-{% block content %}
-  <h1>{{ speaker.name }}</h1>
-  <p>{{ speaker.biography }}</p>
-  <!-- Include more details as needed... -->
+{% extends "base_generic.html" %} {% block content %} {% load static %}
+<div class="container">
+  {% include 'partials/sub-header.html' %}
+  {% include 'partials/metrics.html' %}
+  <div class="row mt-5">
+    <div class="preview-card">
+      <div class="preview-card__wrp">
+        <div class="preview-card__item">
+          <div class="preview-card__img">
+            <img src="https://c7.alamy.com/comp/TCK4F3/man-speaking-bullhorn-megaphone-character-making-announcement-news-golden-stylized-human-cartoon-guy-speaker-person-communication-people-yellow-speake-TCK4F3.jpg" alt="" />
+          </div>
+          <div class="preview-card__content">
+            <div class="preview-card__title">{{ speaker.name }}</div>
+            <span class="preview-card__code">{{ speaker.email }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

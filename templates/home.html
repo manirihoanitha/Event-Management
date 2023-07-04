@@ -1,26 +1,52 @@
-{% extends "base_generic.html" %}
+{% extends "base_generic.html" %} {% load static %}
 <div>
   {% block content %}
-  <header>
+  <header class="mx-0 px-0">
     <h1>Welcome to Our Events Platform</h1>
-    <nav>
-      <a href="{% url 'list-events' %}">Events</a>
-      <a href="{% url 'list-speakers' %}">Speakers</a>
-      <a href="{% url 'list-participants' %}">Participants</a>
+    <nav class="nav">
+      <a href="{% url 'list-events' %}" class="nav-link">Events</a>
+      <a href="{% url 'list-speakers' %}" class="nav-link">Speakers</a>
+      <a href="{% url 'list-participants' %}" class="nav-link">Participants</a>
     </nav>
   </header>
 
+  {% include 'partials/metrics.html' %}
+
   <section id="events">
-    <h2>Featured Events</h2>
+    <h2 class="text-dark">Featured Events</h2>
     {% for event in events|slice:":5" %}
-    <div class="card">
-      <h3>
-        <a href="{% url 'event-detail' title=event.title %}"
-          >{{ event.title }}</a
-        >
-      </h3>
-      <p>{{ event.description|truncatechars:150 }}</p>
-    </div>
+    <article class="postcard light blue">
+      <a class="postcard__img_link" href="#">
+        <img
+          class="postcard__img"
+          src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg"
+          alt="Event Image"
+        />
+      </a>
+      <div class="postcard__text t-dark">
+        <h1 class="postcard__title blue">
+          <a href="{% url 'event-detail' title=event.title %}"
+            >{{ event.title }}</a
+          >
+        </h1>
+        <div class="postcard__subtitle small">
+          <time datetime="2020-05-25 12:00:00">
+            <i class="fas fa-calendar-alt mr-2"></i>
+            {{ event.start_date }} - {{ event.end_date }}
+          </time>
+        </div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">
+          {{ event.description|truncatechars:150 }}
+        </div>
+        <ul class="postcard__tagbox">
+          <li class="tag__item">
+            <i class="fas fa-tag me-2"></i>
+            {% if event.is_free %} Free Event {% else %} Paid Event {% endif %}
+          </li>
+        </ul>
+      </div>
+    </article>
     {% endfor %}
     <a href="{% url 'list-events' %}">See all events</a>
   </section>
@@ -28,14 +54,37 @@
   <section id="speakers">
     <h2>Featured Speakers</h2>
     {% for speaker in speakers|slice:":5" %}
-    <div class="card">
-      <h3>
-        <a href="{% url 'speaker-detail' name=speaker.name %}"
-          >{{ speaker.name }}</a
-        >
-      </h3>
-      <p>{{ speaker.biography|truncatechars:150 }}</p>
-    </div>
+    <article class="postcard light green">
+      <a class="postcard__img_link" href="#">
+        <img
+          class="postcard__img"
+          src="https://c7.alamy.com/comp/TCK4F3/man-speaking-bullhorn-megaphone-character-making-announcement-news-golden-stylized-human-cartoon-guy-speaker-person-communication-people-yellow-speake-TCK4F3.jpg"
+          alt="Event Image"
+        />
+      </a>
+      <div class="postcard__text t-dark">
+        <h1 class="postcard__title green">
+          <a href="{% url 'speaker-detail' email=speaker.email %}"
+            >{{ speaker.name}}</a
+          >
+        </h1>
+        <div class="postcard__subtitle small">
+          {% comment %}
+          <time datetime="2020-05-25 12:00:00">
+            <i class="fas fa-calendar-alt mr-2"></i>{{ event.start_date }} - {{
+            event.end_date }}
+          </time>
+          {% endcomment %}
+        </div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">
+          {{ speaker.biography|truncatechars:150 }}
+        </div>
+        <ul class="postcard__tagbox">
+          <li class="tag__item"><i class="fas fa-tag me-2"></i>Speaker</li>
+        </ul>
+      </div>
+    </article>
     {% endfor %}
     <a href="{% url 'list-speakers' %}">See all speakers</a>
   </section>
@@ -43,14 +92,49 @@
   <section id="participants">
     <h2>Featured Participants</h2>
     {% for participant in participants|slice:":5" %}
-    <div class="card">
-      <h3>
-        <a href="{% url 'participant-detail' email=participant.email %}"
-          >{{ participant.name }}</a
-        >
-      </h3>
-      <p>Email: {{ participant.email }}</p>
-    </div>
+    <article class="postcard light red">
+      <a class="postcard__img_link" href="#">
+        <img
+          class="postcard__img"
+          src="{% static 'images/avatar.jpg' %}"
+          alt="Event Image"
+        />
+      </a>
+      <div class="postcard__text t-dark">
+        <h1 class="postcard__title red">
+          <a
+            class="ms-2"
+            href="{% url 'participant-detail' email=participant.email %}"
+            >{{ participant.name}}</a
+          >
+        </h1>
+        <div class="postcard__subtitle small"></div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">
+          <h6 class="ms-2">Events</h6>
+          <hr />
+          <ul>
+            {% for event in participant.events.all %}
+            <li>
+              <a href="{% url 'event-detail' title=event.title %}">
+                <span>
+                  <i class="fas fa-list text-dark mr-3"></i>
+                  {{ event.title }}
+                </span>
+              </a>
+            </li>
+            {% empty %}
+            <li>No events found for this participant.</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <ul class="postcard__tagbox">
+          <li class="tag__item">
+            <i class="fas fa-tag me-2"></i>Emai: {{participant.email}}
+          </li>
+        </ul>
+      </div>
+    </article>
     {% endfor %}
     <a href="{% url 'list-participants' %}">See all participants</a>
   </section>

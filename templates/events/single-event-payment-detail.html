@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %} {% block content %}
+<div class="container">
+  {% include 'partials/sub-header.html' %}
+  {% include 'partials/metrics.html' %}
+  <div class="row mt-5">
+    <div class="preview-card">
+      <div class="preview-card__wrp">
+        <div class="preview-card__item">
+          <div class="preview-card__img">
+            <img
+              src="https://www.searchenginejournal.com/wp-content/uploads/2020/03/the-top-10-most-popular-online-payment-solutions-5e9978d564973-760x400.webp"
+              alt=""
+            />
+          </div>
+          <div class="preview-card__content">
+            <div class="preview-card__title">
+              Transaction ID: {{ payment.transaction_id }}
+            </div>
+            <span class="preview-card__title">Event: {{ payment.event }} </span>
+            <span class="preview-card__code"
+              >Partcipant: {{ payment.participant }}
+            </span>
+            <div class="preview-card__text">
+              Payment Method: {{ payment.payment_method }}
+            </div>
+            {% if payment.status == 'PAID' %}
+            <div class="preview-card__text">
+              Payment Status:
+              <span class="text-success">{{ payment.status }} </span>
+            </div>
+            {% elif payment.status == 'FAILED' %}
+            <div class="preview-card__text">
+              Payment Status:
+              <span class="text-danger">{{ payment.status }}</span>
+            </div>
+            {% else %}
+            <div class="preview-card__text">
+              Payment Status:
+              <span class="text-warning">{{ payment.status }}</span>
+            </div>
+            {% endif %}
+            <div class="preview-card__text">Amount: ${{ payment.amount }}</div>
+            <div class="preview-card__text">
+              Amount in RWF: {{ payment.amount_rwf }} RWF
+            </div>
+            <div class="preview-card__text">
+              Date: {{ payment.payment_date }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

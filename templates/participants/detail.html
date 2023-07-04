@@ -1,6 +1,41 @@
-{% extends "base_generic.html" %} {% block content %}
-<h1>{{ participant.name }}</h1>
-<p>Email: {{ participant.email }}</p>
-<p>Phone: {{ participant.phone_number }}</p>
-<!-- Include more details as needed... -->
+{% extends "base_generic.html" %} {% block content %} {% load static %}
+<div class="container">
+  {% include 'partials/sub-header.html' %}
+  {% include 'partials/metrics.html' %}
+  <div class="row mt-5">
+    <div class="preview-card">
+      <div class="preview-card__wrp">
+        <div class="preview-card__item">
+          <div class="preview-card__img">
+            <img src="{% static 'images/avatar.jpg' %}" alt="" />
+          </div>
+          <div class="preview-card__content">
+            <div class="preview-card__title">{{ speaker.name }}</div>
+            <span class="preview-card__code">{{ speaker.email }} </span>
+            <div class="preview-card__text">
+              <div class="postcard__preview-txt">
+                <h6 class="ms-2">Events</h6>
+                <hr />
+                <ul>
+                  {% for event in participant.events.all %}
+                  <li>
+                    <a href="{% url 'event-detail' title=event.title %}">
+                      <span>
+                        <i class="fas fa-list-timeline text-prime mr-3"></i>
+                        {{ event.title }}
+                      </span>
+                    </a>
+                  </li>
+                  {% empty %}
+                  <li>No events found for this participant.</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
