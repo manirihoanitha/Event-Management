@@ -1,0 +1,16 @@
+<!-- events/list.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Events</h1>
+  <ul>
+    {% for event in events %}
+      <li>
+        <a href="{% url 'event-detail' title=event.title %}">{{ event.title }}</a>
+        <p>{{ event.description }}</p>
+      </li>
+    {% empty %}
+      <li>No events available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

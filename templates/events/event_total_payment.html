@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Event Total Payment</h1>
+  {% if total_amount %}
+    <p>Total amount paid for event: {{ total_amount.total }}</p>
+  {% else %}
+    <p>No payment information available for this event.</p>
+  {% endif %}
+{% endblock %}

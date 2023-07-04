@@ -1,0 +1,62 @@
+{% extends "base_generic.html" %}
+<div>
+  {% block content %}
+  <header>
+    <h1>Welcome to Our Events Platform</h1>
+    <nav>
+      <a href="{% url 'list-events' %}">Events</a>
+      <a href="{% url 'list-speakers' %}">Speakers</a>
+      <a href="{% url 'list-participants' %}">Participants</a>
+    </nav>
+  </header>
+
+  <section id="events">
+    <h2>Featured Events</h2>
+    {% for event in events|slice:":5" %}
+    <div class="card">
+      <h3>
+        <a href="{% url 'event-detail' title=event.title %}"
+          >{{ event.title }}</a
+        >
+      </h3>
+      <p>{{ event.description|truncatechars:150 }}</p>
+    </div>
+    {% endfor %}
+    <a href="{% url 'list-events' %}">See all events</a>
+  </section>
+
+  <section id="speakers">
+    <h2>Featured Speakers</h2>
+    {% for speaker in speakers|slice:":5" %}
+    <div class="card">
+      <h3>
+        <a href="{% url 'speaker-detail' name=speaker.name %}"
+          >{{ speaker.name }}</a
+        >
+      </h3>
+      <p>{{ speaker.biography|truncatechars:150 }}</p>
+    </div>
+    {% endfor %}
+    <a href="{% url 'list-speakers' %}">See all speakers</a>
+  </section>
+
+  <section id="participants">
+    <h2>Featured Participants</h2>
+    {% for participant in participants|slice:":5" %}
+    <div class="card">
+      <h3>
+        <a href="{% url 'participant-detail' email=participant.email %}"
+          >{{ participant.name }}</a
+        >
+      </h3>
+      <p>Email: {{ participant.email }}</p>
+    </div>
+    {% endfor %}
+    <a href="{% url 'list-participants' %}">See all participants</a>
+  </section>
+  {% endblock content %} {% block footer %}
+  <footer>
+    <p>© 2023 Our Events Platform. All rights reserved.</p>
+  </footer>
+  {% endblock footer %}
+</div>

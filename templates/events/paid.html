@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Paid Events</h1>
+  <ul>
+    {% for event in events %}
+      <li>
+        <a href="{% url 'event-detail' event.title %}">{{ event.title }}</a>
+      </li>
+    {% empty %}
+      <li>No paid events available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

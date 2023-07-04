@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Participants</h1>
+  <ul>
+    {% for participant in participants %}
+      <li>
+        <a href="{% url 'participant-detail' email=participant.email %}">{{ participant.name }}</a>
+      </li>
+    {% empty %}
+      <li>No participants.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

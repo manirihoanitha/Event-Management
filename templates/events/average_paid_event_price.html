@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Average Paid Event Price</h1>
+  {% if average_price %}
+    <p>Average price of paid events: {{ average_price.average }}</p>
+  {% else %}
+    <p>No paid events available.</p>
+  {% endif %}
+{% endblock %}

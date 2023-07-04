@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% block content %}
+  <h1>Event Schedule Count</h1>
+  <ul>
+    {% for event in events %}
+      <li>
+        {{ event.title }}: {{ event.schedule_count }}
+      </li>
+    {% empty %}
+      <li>No events available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Speakers for Event "{{ event.title }}"</h1>
+  <ul>
+    {% for speaker in speakers %}
+      <li>{{ speaker.name }}</li>
+    {% empty %}
+      <li>No speakers assigned to this event.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
