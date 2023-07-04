@@ -1,4 +1,4 @@
 # Event-Management
 ## Admin Credentials
-### Username: Sadnrine
+### Username: Sandrine
 ### Password: 123456
